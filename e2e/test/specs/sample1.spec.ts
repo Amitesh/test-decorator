@@ -1,4 +1,4 @@
-import { suite, test } from '@testdeck/mocha'
+import { suite, test, context } from '@testdeck/mocha'
 import {
   assignPmsUrl,
   assignTmsUrl,
@@ -51,7 +51,7 @@ class MySuite {
   // @issue('11')
   // @testCaseId('10')
   // @severity(Severity.BLOCKER)
-  @epic('User Authentication')
+  // @epic('User Authentication')
   // @feature('Login')
   // @story('Common authorization support')
   // @owner('skorol')
@@ -61,7 +61,14 @@ class MySuite {
   // @data(MySuite.testData)
   // @data.naming(user => `${user} should be able to sign`)
   @test
-  public MyTest() {
+  public MyTest1() {
+    this[context].skip();
+    console.log('=== in my test ')
+    expect(5).toBeGreaterThan(4);
+  }
+
+  @test
+  public MyTest3() {
     console.log('=== in my test ')
     expect(5).toBeGreaterThan(2);
   }
@@ -77,9 +84,9 @@ class MySuite {
   }
 }
 
-// describe('My Login application', () => {
-//   it('should login with valid credentials', async () => {
-//     console.log('=== in describe ===');
-//     expect(5).toBeGreaterThan(2);
-//   })
-// })
+describe('My Login application', () => {
+  it('should login with valid credentials', async () => {
+    console.log('=== in describe ===');
+    expect(5).toBeGreaterThan(2);
+  })
+})

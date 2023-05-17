@@ -57,7 +57,7 @@ export const config: Options.Testrunner = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 1,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -108,13 +108,13 @@ export const config: Options.Testrunner = {
     connectionRetryTimeout: 120000,
     //
     // Default request retries count
-    connectionRetryCount: 3,
+    connectionRetryCount: 0,
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver', 'vscode', 'devtools', 'rerun'],
+    services: ['chromedriver'/*, 'vscode', 'devtools', 'rerun'*/],
 
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -136,8 +136,8 @@ export const config: Options.Testrunner = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec', 'dot', ['allure', { outputDir: 'reports/allure-results' }], 'json', 'mochawesome', 
-                    ['timeline', { outputDir: 'reports/timeline-reporter' }], 'html-nice',
+    reporters: ['spec', /*'dot',*/ ['allure', { outputDir: 'reports/allure-results' }]/*, 'json', 'mochawesome', 
+                    ['timeline', { outputDir: 'reports/timeline-reporter' }], 'html-nice', */
                ],
 
 
@@ -218,14 +218,18 @@ export const config: Options.Testrunner = {
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    // beforeTest: function (test, context) {
-    // },
+    beforeTest: function (test, context) {
+        console.log('=== 1 in beforeTest hook ===')
+        // console.log(context);
+    },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
      * beforeEach in Mocha)
      */
-    // beforeHook: function (test, context) {
-    // },
+    beforeHook: function (test, context) {
+        console.log('=== 2 in beforeHook hook ===')
+        // context.skip()
+    },
     /**
      * Hook that gets executed _after_ a hook within the suite starts (e.g. runs after calling
      * afterEach in Mocha)
@@ -290,28 +294,28 @@ export const config: Options.Testrunner = {
      * @param {<Object>} results object containing test results
      */
     onComplete: function (exitCode, config, capabilities, results) {
-        const reportError = new Error('Could not generate Allure report')
-        const generation = allure(['generate', './reports/allure-results', '--clean', '--output', './reports/allure-report'])
+        // const reportError = new Error('Could not generate Allure report')
+        // const generation = allure(['generate', './reports/allure-results', '--clean', '--output', './reports/allure-report'])
         
-        return new Promise<void>((resolve, reject) => {
-            const generationTimeout = setTimeout(
-                () => reject(reportError),
-                5000)
+        // return new Promise<void>((resolve, reject) => {
+        //     const generationTimeout = setTimeout(
+        //         () => reject(reportError),
+        //         5000)
 
-            generation.on('exit', function (exitCode) {
-                clearTimeout(generationTimeout)
+        //     generation.on('exit', function (exitCode) {
+        //         clearTimeout(generationTimeout)
 
-                if (exitCode !== 0) {
-                    return reject(reportError)
-                }
+        //         if (exitCode !== 0) {
+        //             return reject(reportError)
+        //         }
 
-                console.log('Allure report successfully generated');
-                // const open = allure(['open']);
-                // open.on('exit', function(exitCode){
-                    resolve();
-                // });
-            })
-        })
+        //         console.log('Allure report successfully generated');
+        //         const open = allure(['open', './reports/allure-report']);
+        //         open.on('exit', function(exitCode){
+        //             resolve();
+        //         });
+        //     })
+        // })
     },
     /**
     * Gets executed when a refresh happens.
