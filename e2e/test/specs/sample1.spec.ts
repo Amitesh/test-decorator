@@ -15,26 +15,51 @@ import {
   testCaseId
 } from 'allure-decorators';
 import { ContentType, Severity } from 'allure-js-commons';
-import { allure, MochaAllure } from 'allure-mocha/runtime';
+// import { allure, MochaAllure } from 'allure-mocha/runtime';
+
+import { default as AllureReporter } from '@wdio/allure-reporter';
+
+// interface IAllureReporter {
+//   addStep: (title: string) => void
+//   addFeature: (featureName: string) => void
+//   addEnvironment: (name: string, value: string) => void
+//   addArgument: (name: string, value: string) => void
+//   addDescription: (description: string, type: string) => void
+//   addAttachment: (name: string, content: string, type?: string) => void
+//   addStory: (storyName: string) => void
+//   addSeverity: (severity: string) => void
+//   addIssue: (issue: string) => void
+//   addTestId: (testId: string) => void
+// }
+
+// function getReporter(): IAllureReporter {
+//   const reporter : IAllureReporter = AllureReporter//global.reporter
+
+//   if (!reporter) {
+//     throw new Error('Unable to find the AllureReporter in a global context');
+//   }
+//   return reporter;
+// }
 
 
 @suite
 class MySuite {
-//   public static testData = (): User[] => {
-//     return [User.dummy(), User.dummy1()]
-//   }
+  //   public static testData = (): User[] => {
+  //     return [User.dummy(), User.dummy1()]
+  //   }
 
-  @issue('11')
-  @testCaseId('10')
-  @severity(Severity.BLOCKER)
+  // @issue('11')
+  // @testCaseId('10')
+  // @severity(Severity.BLOCKER)
   @epic('User Authentication')
-  @feature('Login')
-  @story('Common authorization support')
-  @owner('skorol')
-  @tag('smoke')
-  @description('Basic authorization test.')
-//   @data(MySuite.testData)
-//   @data.naming(user => `${user} should be able to sign`)
+  // @feature('Login')
+  // @story('Common authorization support')
+  // @owner('skorol')
+  // @tag('smoke')
+  // @description('Basic authorization test.')
+
+  // @data(MySuite.testData)
+  // @data.naming(user => `${user} should be able to sign`)
   @test
   public MyTest() {
     console.log('=== in my test ')
@@ -42,12 +67,19 @@ class MySuite {
   }
 
   public before() {
-    decorate<MochaAllure>(allure)
-    console.log(' === in before')
+    // decorate<MochaAllure>(allure)
+    console.log(' === in before');
   }
 
   public after() {
-    allure.attachment('Test attachment', 'test attachment content', ContentType.TEXT)
+    // getReporter().addAttachment('Test attachment', 'test attachment content', ContentType.TEXT)
     console.log(' === in after')
   }
 }
+
+// describe('My Login application', () => {
+//   it('should login with valid credentials', async () => {
+//     console.log('=== in describe ===');
+//     expect(5).toBeGreaterThan(2);
+//   })
+// })

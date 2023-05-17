@@ -292,7 +292,7 @@ export const config: Options.Testrunner = {
     onComplete: function (exitCode, config, capabilities, results) {
         const reportError = new Error('Could not generate Allure report')
         const generation = allure(['generate', './reports/allure-results', '--clean', '--output', './reports/allure-report'])
-        const open = allure(['open']);
+        
         return new Promise<void>((resolve, reject) => {
             const generationTimeout = setTimeout(
                 () => reject(reportError),
@@ -306,6 +306,7 @@ export const config: Options.Testrunner = {
                 }
 
                 console.log('Allure report successfully generated');
+                // const open = allure(['open']);
                 // open.on('exit', function(exitCode){
                     resolve();
                 // });
