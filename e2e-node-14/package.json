@@ -1,0 +1,30 @@
+{
+  "name": "my-new-project",
+  "devDependencies": {
+    "@testdeck/mocha": "^0.3.3",
+    "@wdio/allure-reporter": "^7.14.1",
+    "@wdio/devtools-service": "^7.16.10",
+    "@wdio/dot-reporter": "^8.10.2",
+    "@wdio/local-runner": "^7.16.10",
+    "@wdio/mocha-framework": "^7.16.6",
+    "@wdio/spec-reporter": "^7.16.9",
+    "@wdio/cli": "^7.16.10",
+    "allure-decorators": "^2.3.0",
+    "allure-js-commons": "^2.0.0-beta.7",
+    "allure-mocha": "^2.3.0",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4",
+    "wdio-json-reporter": "^3.0.0",
+    "wdio-mochawesome-reporter": "^4.0.0",
+    "wdio-chromedriver-service": "^8.1.1"
+  },
+  "scripts": {
+    "clean": "rm -rf ./reports && rm -rf ./results",
+    "wdio": "npm run clean && wdio run ./wdio.conf.ts",
+    "report": "allure generate ./allure-results --clean --output ./allure-report && allure open ./allure-report"
+  },
+  "dependencies": {
+    "chromedriver": "^113.0.0"
+  }
+}
