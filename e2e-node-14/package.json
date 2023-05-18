@@ -17,7 +17,8 @@
     "typescript": "^5.0.4",
     "wdio-json-reporter": "^3.0.0",
     "wdio-mochawesome-reporter": "^4.0.0",
-    "wdio-chromedriver-service": "^8.1.1"
+    "wdio-chromedriver-service": "^8.1.1",
+    "allure-commandline": "^2.22.0"
   },
   "scripts": {
     "clean": "rm -rf ./reports && rm -rf ./results",
