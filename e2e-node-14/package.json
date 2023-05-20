@@ -21,7 +21,7 @@
     "allure-commandline": "^2.22.0"
   },
   "scripts": {
-    "clean": "rm -rf ./reports && rm -rf ./results",
+    "clean": "rm -rf ./reports && rm -rf ./results && rm -rf ./allure-results && rm -rf ./allure-report",
     "wdio": "npm run clean && wdio run ./wdio.conf.ts",
     "report": "allure generate ./allure-results --clean --output ./allure-report && allure open ./allure-report"
   },
