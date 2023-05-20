@@ -12,6 +12,12 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 reports
 results
 Results
+*/reports
+*/results
+*/allure-report
+*/allure-results
+*/package-lock.json
+
 # Runtime data
 pids
 *.pid

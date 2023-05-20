@@ -29,7 +29,7 @@
     "wdio-vscode-service": "^5.1.0"
   },
   "scripts": {
-    "clean": "rm -rf ./reports && rm -rf ./results",
+    "clean": "rm -rf ./reports && rm -rf ./results && rm -rf ./allure-results && rm -rf ./allure-report",
     "wdio": "npm run clean && wdio run ./wdio.conf.ts",
     "report": "allure generate ./reports/allure-results --clean --output ./reports/allure-report && allure open ./reports/allure-report"
   },
