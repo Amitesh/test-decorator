@@ -154,3 +154,55 @@ function processDecorator<T>(parameterFn: string | ((arg: T) => string), reporte
     return processDescriptor(parameterFn, reporterFn, descriptor)
   }
 }
+  
+
+export function myissue(value: string) {
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+      const original = descriptor.value;
+
+      console.log('== 1 ==', typeof original);
+      if (typeof original === 'function') {
+          descriptor.value = function(...args) {
+              try {
+                console.log('== 2 ==');
+                AllureReporter.addIssue(value);
+              } catch (e) {
+                  console.error(`[ERROR] Failed to decorate ${target.constructor.name}.${propertyKey}: ${e}`);
+              }
+
+              console.log('=== this ===', this);
+              console.log('=== target ===', target);
+              console.log('=== target.constructor ===', target.constructor);
+              console.log('=== target.constructor.name ===', target.constructor.name);
+              console.log('=== propertyKey ===', propertyKey);
+              console.log('=== original ===', original);
+
+              console.log('=== title1 ===', this[context]._runnable?.title);
+              // this[context]._runnable.title += '- new title';
+              // console.log('=== title11 ===', this[context]._runnable?.title);
+              console.log('=== title2 ===', this[context].test?.title);
+              console.log('=== title3 ===', this[context].ctx?.title);
+              // console.log('=== title4 ===', this[context]);
+              // console.log('=== skip ===', this[context].skip());
+
+              const tagToSkip = '#my-tag'; // get it from an service
+              console.log('=== tagToSkip =>', tagToSkip);
+
+              if(tagToSkip === value){
+                this[context].skip();
+              }
+              console.log('== 3 ==');
+              return original.apply(this, args);
+          };
+
+          for (let prop of Object.keys(original)) {
+            console.log('== 4 ==', prop);
+              if(original.hasOwnProperty(prop) && prop.startsWith('__testdeck_')) {
+                console.log('== 5 ==', prop);
+                  descriptor.value[prop] = original[prop]
+              }
+          }
+      }
+      return descriptor;
+  };
+}
