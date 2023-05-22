@@ -3,9 +3,10 @@ import { Severity, issue, testCaseId, severity,
   feature, story, getReporter, Status, myissue } from '../../utils/allure-report-decorators';
 
 
+import { default as store } from '../../utils/db';
 
 
-DataStore.set('tag', '#mt-tag');
+store.set('tag', '#my-tag');
 @suite
 class MySuite {
   //   public static testData = (): User[] => {
@@ -25,7 +26,7 @@ class MySuite {
   // @data(MySuite.testData)
   // @data.naming(user => `${user} should be able to sign`)
   // @myissue('123')
-  @myissue('#profile')
+  @myissue('#my-tag')
   @test
   public MyTest1() {
     getReporter().addStep('Step: running test- MyTest1');
