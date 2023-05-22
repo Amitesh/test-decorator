@@ -2,6 +2,9 @@
  * This code was partially cloned from testdeck/core package and improved to support missing features.
  */
 import { default as AllureReporter, Status } from '@wdio/allure-reporter';
+
+import { default as store } from './db';
+
 const nodeSymbol: (key: string) => string = (key): string => '__testdeck_' + key
 const testNameSymbol: string = nodeSymbol('name')
 const parametersSymbol: string = nodeSymbol('parametersSymbol')
@@ -185,7 +188,7 @@ export function myissue(value: string) {
               // console.log('=== title4 ===', this[context]);
               // console.log('=== skip ===', this[context].skip());
 
-              const tagToSkip = '#my-tag'; // get it from an service
+              const tagToSkip = store.get('tag');
               console.log('=== tagToSkip =>', tagToSkip);
 
               if(tagToSkip === value){
